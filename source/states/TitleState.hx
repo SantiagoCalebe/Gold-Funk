@@ -57,6 +57,7 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
+  var checker:FlxBackdrop;
 
 	#if TITLE_SCREEN_EASTER_EGG
 	final easterEggKeys:Array<String> = [
