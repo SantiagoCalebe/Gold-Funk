@@ -4,6 +4,7 @@ import flixel.FlxObject;
 import flixel.effects.FlxFlicker;
 import lime.app.Application;
 import flixel.addons.display.FlxBackdrop;
+import flixel.addons.display.FlxGridOverlay;
 import states.editors.MasterEditorMenu;
 import options.OptionsState;
 
@@ -65,17 +66,14 @@ class MainMenuState extends MusicBeatState
 		bg.screenCenter();
 		add(bg);
 
-		checker = new FlxBackdrop(Paths.image('backdrop'));
-                checker.updateHitbox();
-                checker.scrollFactor.set(0, 0);
-                checker.alpha = 0.4;
-                checker.screenCenter(X);
-                add(checker);
-
 		if(ClientPrefs.data.backdrop)
 		{
-			checker.alpha = 0;
-		}
+			checker  = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+	                checker.updateHitbox();
+	                checker.scrollFactor.set(0, 0);
+			checker.velocity(40, 40);
+	                add(checker);
+			}
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -159,10 +157,7 @@ class MainMenuState extends MusicBeatState
 
 	var timeNotMoving:Float = 0;
 	override function update(elapsed:Float)
-	{
-		checker.x = 0;
-                checker.y -= 0.16;  
-		
+	{	
 		if (FlxG.sound.music.volume < 0.8)
 			FlxG.sound.music.volume = Math.min(FlxG.sound.music.volume + 0.5 * elapsed, 0.8);
 
